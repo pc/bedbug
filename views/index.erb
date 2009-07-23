@@ -1,8 +1,18 @@
+<h2>Open</h2>
 <ul>
-  <% @bugs.each do |bug| %>
+  <% @bugs.reject{|b| b.fixed?}.each do |bug| %>
     <li><strong><%= bug.id %></strong>: <%= bug.message %><br>
     <small><%= bug.author %></small> |
     <a href="/delete/<%= bug.id %>">delete</a>
+    </li>
+  <% end %>
+</ul>
+<h2>Closed</h2>
+<ul>
+  <% @bugs.select{|b| b.fixed?}.each do |bug| %>
+    <li><strong><%= bug.id %></strong>: <%= bug.message %><br>
+    <small><%= bug.author %></small> |
+    <a href="<%= "#{BaseUrl}#{bug.fixed_in}" %>">fixed in <%= bug.fixed_in[0..8] %></a>
     </li>
   <% end %>
 </ul>

@@ -7,6 +7,8 @@ unless File.directory?(Bugdir)
   FileUtils.mkdir(Bugdir)
 end
 
+BaseUrl = 'https://github.com/pc/pay/commit/'
+
 class Bug
   attr_accessor :author
   attr_accessor :status
@@ -54,6 +56,11 @@ class Bug
     @author = params[:author]
     @status = params[:status]
     @created = params[:created]
+    @fixed_in = params[:fixed_in]
+  end
+
+  def fixed?
+    @status == 'fixed'
   end
 
   def filename
@@ -63,7 +70,7 @@ class Bug
   def save
     d = {:id => @id, :message => @message,
          :author => @author, :status => @status,
-         :created => @created}
+         :created => @created, :fixed_in => @fixed_in}
     File.open(filename, 'w') {|f| f.write d.to_json }
   end
 end
