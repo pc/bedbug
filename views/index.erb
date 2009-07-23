@@ -1,0 +1,8 @@
+<ul>
+  <% @bugs.each do |bug| %>
+    <li><strong><%= bug.id %></strong>: <%= bug.message %><br>
+    <small><%= bug.author %></small> |
+    <a href="/delete/<%= bug.id %>">delete</a>
+    </li>
+  <% end %>
+</ul>
