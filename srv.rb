@@ -1,6 +1,8 @@
+#!/usr/bin/ruby
 require File.join(File.dirname(__FILE__), 'microbug')
 require 'sinatra'
 
+set :host, '127.0.0.1'
 set :port, 1223
 
 get '/' do

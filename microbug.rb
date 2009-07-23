@@ -15,6 +15,7 @@ class Bug
   attr_accessor :created
   attr_accessor :message
   attr_accessor :id
+  attr_accessor :fixed_in
 
   def self.all
     Dir.entries(Bugdir).select {|x| x =~ /\d+/}\
