@@ -1,6 +1,8 @@
 require File.join(File.dirname(__FILE__), 'microbug')
 require 'sinatra'
 
+set :port, 1223
+
 get '/' do
   @bugs = Bug.all
   erb :index

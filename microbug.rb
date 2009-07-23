@@ -64,6 +64,6 @@ class Bug
     d = {:id => @id, :message => @message,
          :author => @author, :status => @status,
          :created => @created}
-    File.open(filename, 'w') {|f| f.write JSON.dump(d) }
+    File.open(filename, 'w') {|f| f.write d.to_json }
   end
 end

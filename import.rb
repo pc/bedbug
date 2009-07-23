@@ -4,7 +4,7 @@ require 'actionmailer'
 
 class BugReceiver < ActionMailer::Base
   def receive(mail)
-    Bug.create(mail.from, mail.subject)
+    Bug.create(mail.from.first, mail.subject)
   end
 end
 
