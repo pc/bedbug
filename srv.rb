@@ -23,4 +23,5 @@ post '/receive-commit' do
       b.save
     end
   end
+  'ok'
 end
