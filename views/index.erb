@@ -12,7 +12,7 @@
   <% @bugs.select{|b| b.fixed?}.each do |bug| %>
     <li><strong><%= bug.id %></strong>: <%= bug.message %><br>
     <small><%= bug.author %></small> |
-    <a href="<%= "#{BaseUrl}#{bug.fixed_in}" %>">fixed in <%= bug.fixed_in[0..8] %></a>
+    <a href="<%= "#{@baseurl}#{bug.fixed_in}" %>">fixed in <%= bug.fixed_in[0..8] %></a>
     </li>
   <% end %>
 </ul>

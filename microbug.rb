@@ -7,7 +7,7 @@ unless File.directory?(Bugdir)
   FileUtils.mkdir(Bugdir)
 end
 
-BaseUrl = 'https://github.com/pc/pay/commit/'
+$config = YAML.load(File.read(File.join(File.dirname(__FILE__), 'config.yml')))
 
 class Bug
   attr_accessor :author
@@ -16,6 +16,7 @@ class Bug
   attr_accessor :message
   attr_accessor :id
   attr_accessor :fixed_in
+  attr_reader :tag
 
   def self.all
     Dir.entries(Bugdir).select {|x| x =~ /\d+/}\
@@ -32,6 +33,10 @@ class Bug
 
   def self.from_id(id)
     Bug.from_file(File.join(Bugdir, id.to_s))
+  end
+
+  def self.from_tag(tag)
+    Bug.all.select{|b| b.tag == tag}.sort_by{|x| x.created}.last
   end
 
   def self.from_file(f)
@@ -58,6 +63,10 @@ class Bug
     @status = params[:status]
     @created = params[:created]
     @fixed_in = params[:fixed_in]
+
+    if message =~ /#(\w+)/
+      @tag = $1
+    end
   end
 
   def fixed?
@@ -71,7 +80,8 @@ class Bug
   def save
     d = {:id => @id, :message => @message,
          :author => @author, :status => @status,
-         :created => @created, :fixed_in => @fixed_in}
+         :created => @created, :fixed_in => @fixed_in,
+         :tag => @tag}
     File.open(filename, 'w') {|f| f.write d.to_json }
   end
 end

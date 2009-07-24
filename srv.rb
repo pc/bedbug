@@ -7,6 +7,7 @@ set :port, 1223
 
 get '/' do
   @bugs = Bug.all
+  @baseurl = $config['baseurl']
   erb :index
 end
 
@@ -18,8 +19,15 @@ end
 post '/receive-commit' do
   push = JSON.parse(params[:payload])
   push['commits'].each do |commit|
+    
+    b = nil
     if commit['message'] =~ /#(\d+)/
       b = Bug.from_id($1)
+    elsif commit['message'] =~ /#(\w+)/
+      b = Bug.from_tag($1)
+    end
+
+    if b
       b.status = 'fixed'
       b.fixed_in = commit['id']
       b.save
