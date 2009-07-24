@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-require File.join(File.dirname(__FILE__), 'microbug')
+require File.join(File.dirname(__FILE__), 'bedbug')
 require 'sinatra'
 
 set :host, '127.0.0.1'

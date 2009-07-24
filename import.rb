@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-require File.join(File.dirname(__FILE__), 'microbug')
+require File.join(File.dirname(__FILE__), 'bedbug')
 require 'actionmailer'
 
 class BugReceiver < ActionMailer::Base
